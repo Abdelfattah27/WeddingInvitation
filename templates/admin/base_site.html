@@ -1,0 +1,70 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root, html[data-theme="light"] {
+    --primary: #b8955a;
+    --secondary: #3b2a20;
+    --accent: #efe0bf;
+    --primary-fg: #fffcf6;
+    --header-color: #efe0bf;
+    --header-branding-color: #efe0bf;
+    --header-bg: #3b2a20;
+    --header-link-color: #fffcf6;
+    --breadcrumbs-fg: #8a7560;
+    --breadcrumbs-link-fg: #3b2a20;
+    --breadcrumbs-bg: #f4ecdf;
+    --link-fg: #8c6a35;
+    --link-hover-color: #3b2a20;
+    --link-selected-fg: #6b4f25;
+    --button-bg: #b8955a;
+    --button-hover-bg: #9c7b45;
+    --default-button-bg: #3b2a20;
+    --default-button-hover-bg: #5a4636;
+    --selected-row: #fbf3e2;
+    --body-bg: #fbf7f0;
+    --darkened-bg: #f4ecdf;
+    --selected-bg: #efe0bf;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --primary: #d8b878; --secondary: #1e1611; --header-bg: #120d0a; --body-bg: #16100c;
+      --darkened-bg: #1e1611; --link-fg: #e8cf9a; --breadcrumbs-bg: #1e1611; --breadcrumbs-link-fg: #e8cf9a;
+      --selected-row: #2a2017; --button-bg: #b8955a; --default-button-bg: #5a4636;
+    }
+  }
+  html[data-theme="dark"] {
+    --primary: #d8b878; --secondary: #1e1611; --header-bg: #120d0a; --body-bg: #16100c;
+    --darkened-bg: #1e1611; --link-fg: #e8cf9a; --breadcrumbs-bg: #1e1611; --breadcrumbs-link-fg: #e8cf9a;
+    --selected-row: #2a2017; --button-bg: #b8955a; --default-button-bg: #5a4636;
+  }
+  body { font-family: "Jost", system-ui, sans-serif; }
+  #site-name a { font-family: "Cormorant Garamond", serif; font-size: 26px; font-weight: 600; letter-spacing: .02em; }
+  .module h2, .module caption, .inline-group h2 { background: var(--secondary); color: var(--header-color); }
+  #header { border-bottom: 2px solid var(--primary); }
+
+  .wd-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin: 0 0 24px; }
+  .wd-stat { background: var(--body-bg); border: 1px solid var(--hairline-color); border-radius: 14px; padding: 18px 20px; box-shadow: 0 8px 24px -16px rgba(59,42,32,.35); }
+  .wd-stat b { display: block; font-family: "Cormorant Garamond", serif; font-size: 40px; line-height: 1.1; color: var(--primary); }
+  .wd-stat span { color: var(--body-quiet-color); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+  .wd-stat a { text-decoration: none; }
+  .wd-hero { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #3b2a20, #5a4636); color: #efe0bf; border-radius: 16px; padding: 20px 24px; margin-bottom: 18px; }
+  .wd-hero h1 { font-family: "Cormorant Garamond", serif; color: #efe0bf; font-size: 30px; margin: 0; font-weight: 600; }
+  .wd-hero p { margin: 4px 0 0; color: #d9bf8c; }
+  .wd-hero .button { background: #d8b878; color: #3b2a20; border-radius: 999px; padding: 10px 18px; font-weight: 500; }
+  .wd-quick { display: flex; flex-wrap: wrap; gap: 8px; }
+  .wd-quick a { border: 1px solid #d9bf8c; color: #efe0bf; border-radius: 999px; padding: 8px 14px; text-decoration: none; font-size: 13px; }
+  .wd-quick a:hover { background: rgba(217,191,140,.15); color: #fff; }
+</style>
+{% endblock %}
+
+{% block branding %}
+<div id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></div>
+{% if user.is_anonymous %}{% include "admin/color_theme_toggle.html" %}{% endif %}
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

@@ -1,0 +1,416 @@
+{% load static %}<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════╗
+  ║  Hey there, curious developer 👀          ║
+  ║  git commit -m "forever"                  ║
+  ║  Abdelfattah ❤ Hoda — 17.10.2026          ║
+  ╚══════════════════════════════════════════╝
+-->
+<html lang="ar" dir="rtl" data-theme="day">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{ site.groom_name_en }} &amp; {{ site.bride_name_en }} · 17.10.2026</title>
+  <meta name="description" content="{{ site.groom_name_ar }} ❤️ {{ site.bride_name_ar }} — 17 • 10 • 2026 · {{ site.venue_name_ar }}، {{ site.venue_address_ar }}">
+  <meta name="theme-color" content="#FBF7F0" id="meta-theme">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ site.groom_name_ar }} ❤️ {{ site.bride_name_ar }} · {{ site.groom_name_en }} & {{ site.bride_name_en }}">
+  <meta property="og:description" content="17 • 10 • 2026 — {{ site.venue_name_en }}, {{ site.venue_address_en }}">
+  {% if site.share_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ site.share_image.url }}">{% endif %}
+
+  <script>
+    /* Set language + theme before first paint to avoid a flash. */
+    (function () {
+      var d = document.documentElement, ls = {};
+      try { ls.lang = localStorage.getItem("wedding-lang"); ls.theme = localStorage.getItem("wedding-theme"); } catch (e) {}
+      var lang = "{{ initial_lang }}" || ls.lang || ((navigator.language || "").slice(0, 2) === "en" ? "en" : "ar");
+      d.lang = lang; d.dir = lang === "ar" ? "rtl" : "ltr";
+      d.dataset.theme = ls.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "night" : "day");
+    })();
+  </script>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E💍%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'invitation/css/style.css' %}">
+</head>
+<body class="is-locked">
+
+<!-- ░░ Reusable ornaments ░░ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="sprig" viewBox="0 0 120 120">
+      <path d="M8 112 C 30 90, 52 64, 70 40 S 100 10, 112 6" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M30 88 c -12 -2 -20 -10 -22 -20 c 12 0 20 8 22 20z" fill="currentColor" opacity=".55"/>
+      <path d="M30 88 c 4 -12 14 -18 24 -18 c -2 12 -12 18 -24 18z" fill="currentColor" opacity=".35"/>
+      <path d="M50 64 c -12 -4 -18 -13 -18 -23 c 12 2 18 11 18 23z" fill="currentColor" opacity=".5"/>
+      <path d="M50 64 c 6 -11 16 -15 26 -14 c -4 11 -14 15 -26 14z" fill="currentColor" opacity=".3"/>
+      <path d="M72 38 c -10 -6 -14 -15 -12 -25 c 10 4 14 14 12 25z" fill="currentColor" opacity=".45"/>
+      <path d="M72 38 c 8 -9 18 -11 27 -8 c -6 9 -16 11 -27 8z" fill="currentColor" opacity=".3"/>
+      <circle cx="112" cy="6" r="2.4" fill="currentColor"/>
+      <circle cx="92" cy="20" r="1.6" fill="currentColor" opacity=".6"/>
+    </symbol>
+    <symbol id="star8" viewBox="0 0 100 100">
+      <g fill="none" stroke="currentColor" stroke-width=".8">
+        <rect x="20" y="20" width="60" height="60"/>
+        <rect x="20" y="20" width="60" height="60" transform="rotate(45 50 50)"/>
+        <circle cx="50" cy="50" r="18"/>
+        <circle cx="50" cy="50" r="44" stroke-dasharray="2 4"/>
+      </g>
+    </symbol>
+    <symbol id="heart" viewBox="0 0 24 24">
+      <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.6 1.1 4.4 2.6h2.4C14 6.1 15.6 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+<!-- ░░ Top controls ░░ -->
+<header class="topbar">
+  <button class="pill lang-toggle" id="lang-toggle" type="button" aria-label="Switch language / تغيير اللغة">
+    <span class="opt" data-for="ar">عربي</span><span class="sep"></span><span class="opt" data-for="en">EN</span>
+  </button>
+  <button class="pill theme-toggle" id="theme-toggle" type="button" aria-label="Day / night">
+    <span class="sun">☀️</span><span class="moon">🌙</span>
+  </button>
+</header>
+
+<!-- ░░ 1. Opening ░░ -->
+<section class="intro" id="intro" aria-label="Invitation cover">
+  <div class="door door-a"><span class="door-frame"></span></div>
+  <div class="door door-b"><span class="door-frame"></span></div>
+  <div class="intro-content">
+    <svg class="intro-star" aria-hidden="true"><use href="#star8"/></svg>
+    <p class="bismillah i-step" style="--d:.3s">بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ</p>
+    <p class="bismillah-en i-step" style="--d:.9s" data-l="en">In the name of Allah, the Most Gracious, the Most Merciful</p>
+    <h1 class="intro-names i-step" style="--d:1.7s">
+      <span data-l="ar"><span class="groom-name">{{ site.groom_name_ar }}</span> <span class="heart-beat">❤️</span> {{ site.bride_name_ar }}</span>
+      <span data-l="en"><span class="groom-name">{{ site.groom_name_en }}</span> <span class="heart-beat">❤️</span> {{ site.bride_name_en }}</span>
+    </h1>
+    <p class="intro-date i-step" style="--d:2.6s" dir="ltr">17 • 10 • 2026</p>
+    <button class="btn btn-gold btn-open i-step" style="--d:3.4s" id="open-btn" type="button">
+      <span data-l="ar">افتح الدعوة ✨</span><span data-l="en">Open Invitation ✨</span>
+    </button>
+  </div>
+</section>
+
+<main class="site" id="site">
+
+  <!-- ░░ Couple ░░ -->
+  <section class="section hero" id="couple">
+    <svg class="corner c-tl" aria-hidden="true"><use href="#sprig"/></svg>
+    <svg class="corner c-br" aria-hidden="true"><use href="#sprig"/></svg>
+    <div class="container narrow reveal">
+      <p class="eyebrow"><span data-l="ar">بكل حب وسعادة</span><span data-l="en">Together with their families</span></p>
+
+      <div class="arch">
+        {% if site.couple_photo %}
+          <img src="{{ site.couple_photo.url }}" alt="{{ site.groom_name_en }} & {{ site.bride_name_en }}" loading="lazy">
+        {% else %}
+          <div class="monogram" aria-hidden="true">
+            <span data-l="ar">ع<i>&</i>ه</span><span data-l="en">A<i>&</i>H</span>
+          </div>
+        {% endif %}
+      </div>
+
+      <h2 class="couple-names">
+        <span class="name"><span data-l="ar" class="groom-name">{{ site.groom_name_ar }}</span><span data-l="en" class="groom-name">{{ site.groom_name_en }}</span></span>
+        <span class="amp">&</span>
+        <span class="name"><span data-l="ar">{{ site.bride_name_ar }}</span><span data-l="en">{{ site.bride_name_en }}</span></span>
+      </h2>
+      <p class="lead"><span data-l="ar">يتشرفون بدعوتكم لحضور حفل زفافهم</span><span data-l="en">request the pleasure of your company at their wedding</span></p>
+      {% if site.couple_message_ar or site.couple_message_en %}
+      <p class="quote"><span data-l="ar">{{ site.couple_message_ar }}</span><span data-l="en">{{ site.couple_message_en }}</span></p>
+      {% endif %}
+      <p class="date-line" dir="ltr">17 • 10 • 2026</p>
+      <a href="#countdown" class="scroll-cue" aria-label="Scroll"><span></span></a>
+    </div>
+  </section>
+
+  <!-- ░░ 2. Countdown ░░ -->
+  <section class="section" id="countdown">
+    <div class="container reveal">
+      {% include "invitation/_heading.html" with ar="باقي على الفرح" en="Counting down to forever" %}
+      <div class="countdown-wrap">
+        <svg class="orbit" viewBox="0 0 400 400" aria-hidden="true">
+          <circle cx="200" cy="200" r="190" />
+          <circle cx="200" cy="200" r="160" class="dash"/>
+        </svg>
+        <span class="spark s1">✦</span><span class="spark s2">✧</span><span class="spark s3">✦</span><span class="spark s4">✧</span>
+        <div class="countdown" id="countdown-grid">
+          <div class="cd-cell"><span class="cd-num" data-unit="days">--</span><span class="cd-label"><span data-l="ar">أيام</span><span data-l="en">Days</span></span></div>
+          <div class="cd-cell"><span class="cd-num" data-unit="hours">--</span><span class="cd-label"><span data-l="ar">ساعات</span><span data-l="en">Hours</span></span></div>
+          <div class="cd-cell"><span class="cd-num" data-unit="minutes">--</span><span class="cd-label"><span data-l="ar">دقايق</span><span data-l="en">Minutes</span></span></div>
+          <div class="cd-cell"><span class="cd-num" data-unit="seconds">--</span><span class="cd-label"><span data-l="ar">ثواني</span><span data-l="en">Seconds</span></span></div>
+        </div>
+        <p class="today-msg" id="today-msg" hidden>
+          <span data-l="ar">النهارده فرحنا ❤️</span><span data-l="en">Today is our special day ❤️</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ Wedding details ░░ -->
+  <section class="section alt" id="details">
+    <div class="container reveal">
+      {% include "invitation/_heading.html" with ar="يوم الفرح" en="The wedding day" %}
+      <div class="detail-cards stagger">
+        <div class="card detail">
+          <span class="d-icon">🗓️</span>
+          <span class="d-label"><span data-l="ar">التاريخ</span><span data-l="en">Date</span></span>
+          <strong class="d-value" data-fmt="date">Saturday, 17 October 2026</strong>
+        </div>
+        <div class="card detail">
+          <span class="d-icon">🕰️</span>
+          <span class="d-label"><span data-l="ar">الساعة</span><span data-l="en">Time</span></span>
+          <strong class="d-value" data-fmt="time">{{ site.wedding_datetime|time:"g:i A" }}</strong>
+        </div>
+        <div class="card detail">
+          <span class="d-icon">🏛️</span>
+          <span class="d-label"><span data-l="ar">المكان</span><span data-l="en">Venue</span></span>
+          <strong class="d-value"><span data-l="ar">{{ site.venue_name_ar }}</span><span data-l="en">{{ site.venue_name_en }}</span></strong>
+        </div>
+      </div>
+
+      {% if schedule %}
+      <h3 class="sub-title"><span data-l="ar">برنامج الليلة</span><span data-l="en">The evening</span></h3>
+      <ol class="timeline stagger">
+        {% for item in schedule %}
+        <li>
+          <span class="t-dot">{{ item.icon }}</span>
+          <span class="t-time" data-time="{{ item.time|time:'H:i' }}">{{ item.time|time:"g:i A" }}</span>
+          <span class="t-title"><span data-l="ar">{{ item.title_ar }}</span><span data-l="en">{{ item.title_en }}</span></span>
+        </li>
+        {% endfor %}
+      </ol>
+      {% endif %}
+
+      <!-- <div class="center">
+        <button class="btn btn-ghost" id="add-calendar" type="button">
+          <span data-l="ar">📅 ضيفه للتقويم</span><span data-l="en">📅 Add to calendar</span>
+        </button>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- ░░ 3. Location ░░ -->
+  <section class="section" id="location">
+    <div class="container reveal">
+      {% include "invitation/_heading.html" with ar="الطريق لينا" en="Find your way to us" %}
+      <div class="location card">
+        <div class="map-art" aria-hidden="true">
+          <svg viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+            <path class="road" d="M-10 170 C 80 150, 120 90, 210 100 S 330 60, 410 40"/>
+            <path class="road thin" d="M40 -10 C 70 60, 120 120, 110 230"/>
+            <path class="road thin" d="M260 -10 C 250 70, 300 150, 380 230"/>
+            <path class="road dotted" d="M-10 60 C 90 70, 160 40, 230 30"/>
+            <path class="river" d="M-10 205 C 100 190, 180 215, 260 195 S 360 180, 410 190"/>
+          </svg>
+          <div class="pin"><span>📍</span><i></i></div>
+        </div>
+        <div class="loc-body">
+          <h3 class="venue">📍 <span data-l="ar">{{ site.venue_name_ar }}</span><span data-l="en">{{ site.venue_name_en }}</span></h3>
+          <p class="muted"><span data-l="ar">{{ site.venue_address_ar }}</span><span data-l="en">{{ site.venue_address_en }}</span></p>
+
+          <div class="qr-card">
+            {% if site.location_qr_code %}
+              <button class="qr-frame" id="qr-zoom" type="button" aria-label="Enlarge QR code">
+                <img src="{{ site.location_qr_code.url }}" alt="QR code — {{ site.venue_name_en }}" width="240" height="240">
+              </button>
+            {% else %}
+              <div class="qr-frame qr-empty"><span data-l="ar">الـQR هيتضاف قريب</span><span data-l="en">QR code coming soon</span></div>
+            {% endif %}
+            <p class="qr-label"><span data-l="ar">امسح للوصول للمكان</span><span data-l="en">Scan for Location</span></p>
+          </div>
+
+          <a class="btn btn-gold" href="{{ site.google_maps_url }}" target="_blank" rel="noopener">
+            <span data-l="ar">🗺️ افتح الموقع على الخريطة</span><span data-l="en">🗺️ Open in Google Maps</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ 6. Music ░░ -->
+  {% if site.song %}
+  <section class="section alt" id="music">
+    <div class="container narrow reveal center">
+      {% include "invitation/_heading.html" with ar="أغنيتنا" en="Our song" %}
+      <div class="vinyl" id="vinyl" aria-hidden="true"><span class="label"><svg><use href="#heart"/></svg></span></div>
+      {% if site.song_title %}<p class="song-title" dir="auto">{{ site.song_title }}</p>{% endif %}
+      <button class="btn btn-gold music-btn" id="music-btn" type="button" aria-pressed="false">
+        <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="when-paused"><span data-l="ar">♫ شغّل أغنيتنا</span><span data-l="en">♫ Play Our Song</span></span>
+        <span class="when-playing"><span data-l="ar">إيقاف مؤقت</span><span data-l="en">Pause</span></span>
+      </button>
+      <audio id="song" src="{{ site.song.url }}" preload="none" loop></audio>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- ░░ 8. Guestbook ░░ -->
+  <section class="section" id="guestbook">
+    <div class="container reveal">
+      {% include "invitation/_heading.html" with ar="سيبلنا كلمة حلوة" en="Leave us a wish" %}
+      {% if site.guestbook_open %}
+      <form class="card gb-form" id="gb-form" novalidate>
+        <label class="field">
+          <span class="f-label"><span data-l="ar">الاسم</span><span data-l="en">Name</span></span>
+          <input name="name" maxlength="60" required autocomplete="name" dir="auto" data-ph-ar="اسمك" data-ph-en="Your name">
+        </label>
+        <label class="field">
+          <span class="f-label"><span data-l="ar">الرسالة</span><span data-l="en">Message</span></span>
+          <textarea name="message" maxlength="500" rows="3" required dir="auto" data-ph-ar="ربنا يسعدكم ❤️" data-ph-en="Wishing you both a lifetime of happiness…"></textarea>
+          <span class="counter" aria-hidden="true"><span id="gb-count">0</span>/500</span>
+        </label>
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn btn-gold" type="submit">
+          <span data-l="ar">ابعتها بحب ❤️</span><span data-l="en">Send with love ❤️</span>
+        </button>
+        <p class="form-note" id="gb-note" role="status" aria-live="polite"></p>
+      </form>
+      {% endif %}
+
+      <div class="gb-list" id="gb-list">
+        {% for m in messages_list %}
+        <article class="card wish" data-id="{{ m.id }}">
+          <h4 dir="auto">❤️ {{ m.name }}</h4>
+          <p dir="auto">{{ m.message|linebreaksbr }}</p>
+        </article>
+        {% endfor %}
+      </div>
+      <p class="gb-empty muted center" id="gb-empty" {% if messages_list %}hidden{% endif %}>
+        <span data-l="ar">خليك أول واحد يكتب تهنئة ✨</span><span data-l="en">Be the first to leave a wish ✨</span>
+      </p>
+      <div class="center"><button class="btn btn-ghost" id="gb-more" type="button" hidden>
+        <span data-l="ar">اعرض رسايل أكتر</span><span data-l="en">Show more wishes</span>
+      </button></div>
+    </div>
+  </section>
+
+  <!-- ░░ 9. RSVP ░░ -->
+  {% if site.rsvp_open %}
+  <section class="section alt" id="rsvp">
+    <div class="container narrow reveal">
+      <div class="card rsvp" id="rsvp-card" data-step="ask">
+        <svg class="rsvp-sprig" aria-hidden="true"><use href="#sprig"/></svg>
+        <div class="rsvp-step" data-step="ask">
+          <h2 class="section-title"><span data-l="ar">هتشاركونا فرحتنا؟ ❤️</span><span data-l="en">Are you joining us? ❤️</span></h2>
+          <div class="rsvp-actions">
+            <button class="btn btn-gold" data-rsvp="yes" type="button"><span data-l="ar">أيوه، أكيد جاي ❤️</span><span data-l="en">Yes, I'll Be There ❤️</span></button>
+            <button class="btn btn-ghost" data-rsvp="no" type="button"><span data-l="ar">للأسف مش هقدر 😢</span><span data-l="en">Sorry, I Can't Make It 😢</span></button>
+          </div>
+        </div>
+        <form class="rsvp-step" data-step="name" id="rsvp-form" novalidate>
+          <h3 class="section-title small"><span data-l="ar">يا أهلًا بيك! اسمك إيه؟ 🥰</span><span data-l="en">Yay! What's your name? 🥰</span></h3>
+          <input name="name" maxlength="60" required autocomplete="name" dir="auto" data-ph-ar="اكتب اسمك هنا" data-ph-en="Type your name">
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="rsvp-actions">
+            <button class="btn btn-gold" type="submit"><span data-l="ar">تأكيد الحضور ✨</span><span data-l="en">Confirm ✨</span></button>
+            <button class="btn btn-link" type="button" data-rsvp="back"><span data-l="ar">رجوع</span><span data-l="en">Back</span></button>
+          </div>
+          <p class="form-note" id="rsvp-note" role="status" aria-live="polite"></p>
+        </form>
+        <div class="rsvp-step" data-step="yes">
+          <div class="big-heart"><svg><use href="#heart"/></svg></div>
+          <h3 class="section-title small"><span data-l="ar">مستنيينك تنورنا ❤️</span><span data-l="en">We can't wait to celebrate with you ❤️</span></h3>
+          <p class="muted rsvp-name" dir="auto"></p>
+          <button class="btn btn-link" type="button" data-rsvp="reset"><span data-l="ar">مش أنا؟ سجّل اسم تاني</span><span data-l="en">Not you? Add another name</span></button>
+        </div>
+        <div class="rsvp-step" data-step="no">
+          <div class="big-heart soft"><svg><use href="#heart"/></svg></div>
+          <h3 class="section-title small"><span data-l="ar">هتوحشنا! ودعواتك هتوصلنا ❤️</span><span data-l="en">We'll miss you! Your prayers mean the world to us ❤️</span></h3>
+          <a class="btn btn-ghost" href="#guestbook"><span data-l="ar">سيبلنا تهنئة ✍️</span><span data-l="en">Leave us a wish ✍️</span></a>
+          <button class="btn btn-link" type="button" data-rsvp="back"><span data-l="ar">غيّرت رأيي!</span><span data-l="en">I changed my mind!</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- ░░ 10. Mini game ░░ -->
+  <section class="section" id="game">
+    <div class="container narrow reveal">
+      {% include "invitation/_heading.html" with ar="قد إيه تعرفونا؟ ❤️" en="How Well Do You Know Us? ❤️" %}
+      <div class="card game" id="game-card">
+        <div class="game-start" data-g="start">
+          <p class="muted"><span data-l="ar">أسئلة سريعة… اختار مين فينا 😄</span><span data-l="en">A few quick questions — just pick one of us 😄</span></p>
+          <button class="btn btn-gold" id="game-start" type="button"><span data-l="ar">يلا نلعب 🎲</span><span data-l="en">Let's play 🎲</span></button>
+        </div>
+        <div class="game-play" data-g="play" hidden>
+          <div class="g-progress" id="g-progress"></div>
+          <p class="g-question" id="g-question"></p>
+          <div class="g-options">
+            <button class="g-opt" data-pick="groom" type="button"><span class="g-init"><span data-l="ar">ع</span><span data-l="en">A</span></span><span class="g-name"><span data-l="ar">{{ site.groom_name_ar }}</span><span data-l="en">{{ site.groom_name_en }}</span></span></button>
+            <button class="g-opt" data-pick="bride" type="button"><span class="g-init"><span data-l="ar">ه</span><span data-l="en">H</span></span><span class="g-name"><span data-l="ar">{{ site.bride_name_ar }}</span><span data-l="en">{{ site.bride_name_en }}</span></span></button>
+          </div>
+          <p class="g-reveal" id="g-reveal" aria-live="polite"></p>
+          <button class="btn btn-ghost g-next" id="g-next" type="button" hidden><span data-l="ar">اللي بعده ←</span><span data-l="en">Next →</span></button>
+        </div>
+        <div class="game-end" data-g="end" hidden>
+          <div class="score-ring">
+            <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="track"/><circle cx="60" cy="60" r="52" class="bar" id="score-bar"/></svg>
+            <span class="score" dir="ltr"><span id="score-num">0</span> / <span id="score-total">0</span> ❤️</span>
+          </div>
+          <p class="score-msg" id="score-msg"></p>
+          <button class="btn btn-ghost" id="game-again" type="button"><span data-l="ar">العب تاني 🔁</span><span data-l="en">Play again 🔁</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ 11. Scratch card ░░ -->
+  <section class="section alt" id="surprise">
+    <div class="container narrow reveal">
+      {% include "invitation/_heading.html" with ar="مفاجأة صغيرة ليك ✨" en="A Little Surprise For You ✨" %}
+      <div class="scratch" id="scratch">
+        <div class="scratch-prize"><p id="scratch-text"></p></div>
+        <canvas id="scratch-canvas" aria-label="Scratch card"></canvas>
+      </div>
+      <p class="muted center scratch-hint"><span data-l="ar">امسح الكارت بصباعك 👆</span><span data-l="en">Scratch the card with your finger 👆</span></p>
+    </div>
+  </section>
+
+  <!-- ░░ Final ░░ -->
+  <section class="section final" id="final">
+    <svg class="corner c-tr" aria-hidden="true"><use href="#sprig"/></svg>
+    <svg class="corner c-bl" aria-hidden="true"><use href="#sprig"/></svg>
+    <div class="container narrow reveal center">
+      <svg class="final-star" aria-hidden="true"><use href="#star8"/></svg>
+      <h2 class="final-names">
+        <span data-l="ar"><span class="groom-name">{{ site.groom_name_ar }}</span> ❤️ {{ site.bride_name_ar }}</span>
+        <span data-l="en"><span class="groom-name">{{ site.groom_name_en }}</span> ❤️ {{ site.bride_name_en }}</span>
+      </h2>
+      <p class="intro-date" dir="ltr">17 • 10 • 2026</p>
+      <p class="lead"><span data-l="ar">شكرًا لمشاركتنا فرحتنا ❤️</span><span data-l="en">Thank you for being part of our special day ❤️</span></p>
+    </div>
+    <footer class="footer muted">
+      <span dir="ltr">&lt;/&gt; with ❤️</span>
+    </footer>
+  </section>
+</main>
+
+{% if site.song %}
+<button class="mini-player" id="mini-player" type="button" aria-label="Pause / play music" hidden>
+  <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="mp-icon">♫</span>
+</button>
+{% endif %}
+
+<div class="lightbox" id="lightbox" hidden><div class="lightbox-inner"></div></div>
+
+<div class="terminal" id="terminal" hidden role="dialog" aria-label="Developer console">
+  <div class="term-window" dir="ltr">
+    <div class="term-bar"><i></i><i></i><i></i><span>wedding@love:~</span><button type="button" class="term-close" aria-label="Close">×</button></div>
+    <pre class="term-body" id="term-body"></pre>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+{{ config|json_script:"wedding-config" }}
+<script src="{% static 'invitation/js/app.js' %}" defer></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static log %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+{% block coltype %}colMS{% endblock %}
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <div class="wd-hero">
+    <div>
+      <h1>17 • 10 • 2026</h1>
+      <p>{{ stats.days_left }} day{{ stats.days_left|pluralize }} to go 💍</p>
+    </div>
+    <div class="wd-quick">
+      <a href="{% url 'admin:invitation_sitesettings_changelist' %}">✏️ Edit invitation</a>
+      <a href="{% url 'admin:invitation_rsvp_changelist' %}">💌 RSVPs</a>
+      <a href="{% url 'admin:invitation_guestmessage_changelist' %}">📖 Guestbook</a>
+      <a href="/" target="_blank">↗ View site</a>
+    </div>
+  </div>
+
+  <div class="wd-stats">
+    <a class="wd-stat" href="{% url 'admin:invitation_rsvp_changelist' %}"><b>{{ stats.attending }}</b><span>Guests attending</span></a>
+    <a class="wd-stat" href="{% url 'admin:invitation_guestmessage_changelist' %}?is_approved__exact=1"><b>{{ stats.messages }}</b><span>Wishes on the site</span></a>
+    <a class="wd-stat" href="{% url 'admin:invitation_guestmessage_changelist' %}?is_approved__exact=0"><b>{{ stats.pending }}</b><span>Hidden / awaiting approval</span></a>
+    <div class="wd-stat"><b>{{ stats.days_left }}</b><span>Days left</span></div>
+  </div>
+
+  {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+  <div class="module">
+    <h2>Latest RSVPs</h2>
+    {% if recent_rsvps %}
+      <ul class="actionlist">{% for r in recent_rsvps %}<li dir="auto">❤️ {{ r.name }} <span class="mini quiet">· {{ r.created_at|timesince }} ago</span></li>{% endfor %}</ul>
+    {% else %}<p>No RSVPs yet.</p>{% endif %}
+  </div>
+  <div class="module">
+    <h2>Latest wishes</h2>
+    {% if recent_messages %}
+      <ul class="actionlist">{% for m in recent_messages %}<li dir="auto"><strong>{{ m.name }}</strong>{% if not m.is_approved %} <span class="mini quiet">(hidden)</span>{% endif %}<br><span class="mini">{{ m.message|truncatechars:90 }}</span></li>{% endfor %}</ul>
+    {% else %}<p>No messages yet.</p>{% endif %}
+  </div>
+  <div class="module" id="recent-actions-module">
+    <h2>{% translate 'Recent actions' %}</h2>
+    {% get_admin_log 6 as admin_log for_user user %}
+    {% if not admin_log %}<p>{% translate 'None available' %}</p>{% else %}
+    <ul class="actionlist">
+      {% for entry in admin_log %}
+      <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+        {% if entry.is_deletion or not entry.get_admin_url %}{{ entry.object_repr }}{% else %}<a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
